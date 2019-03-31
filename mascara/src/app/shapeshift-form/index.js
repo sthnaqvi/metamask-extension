@@ -1,9 +1,10 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {qrcode} from 'qrcode-npm'
+import qrcode from 'qrcode-generator'
 import {connect} from 'react-redux'
-import {shapeShiftSubview, pairUpdate, buyWithShapeShift} from '../../../../ui/app/actions'
-import {isValidAddress} from '../../../../ui/app/util'
+import {shapeShiftSubview, pairUpdate, buyWithShapeShift} from '../../../../ui/app/store/actions'
+import {isValidAddress} from '../../../../ui/app/helpers/utils/util'
 
 export class ShapeShiftForm extends Component {
   static propTypes = {
@@ -78,11 +79,11 @@ export class ShapeShiftForm extends Component {
 
   renderMetadata (label, value) {
     return (
-      <div className='shapeshift-form__metadata-wrapper'>
-        <div className='shapeshift-form__metadata-label'>
+      <div className="shapeshift-form__metadata-wrapper">
+        <div className="shapeshift-form__metadata-label">
           {label}:
         </div>
-        <div className='shapeshift-form__metadata-value'>
+        <div className="shapeshift-form__metadata-value">
           {value}
         </div>
       </div>
@@ -100,7 +101,7 @@ export class ShapeShiftForm extends Component {
     } = tokenExchangeRates[coinPair] || {}
 
     return (
-      <div className='shapeshift-form__metadata'>
+      <div className="shapeshift-form__metadata">
         {this.renderMetadata('Status', limit ? 'Available' : 'Unavailable')}
         {this.renderMetadata('Limit', limit)}
         {this.renderMetadata('Exchange Rate', rate)}
@@ -116,13 +117,13 @@ export class ShapeShiftForm extends Component {
     qrImage.make()
 
     return (
-      <div className='shapeshift-form'>
-        <div className='shapeshift-form__deposit-instruction'>
+      <div className="shapeshift-form">
+        <div className="shapeshift-form__deposit-instruction">
           Deposit your BTC to the address bellow:
         </div>
-        <div className='shapeshift-form__qr-code'>
+        <div className="shapeshift-form__qr-code">
           {isLoading
-            ? <img src='images/loading.svg' style={{ width: '60px' }} />
+            ? <img src="images/loading.svg" style={{ width: '60px' }} />
             : <div dangerouslySetInnerHTML={{ __html: qrImage.createTableTag(4) }} />
           }
         </div>
@@ -140,14 +141,14 @@ export class ShapeShiftForm extends Component {
 
     return showQrCode ? this.renderQrCode() : (
       <div>
-        <div className='shapeshift-form'>
-          <div className='shapeshift-form__selectors'>
-            <div className='shapeshift-form__selector'>
-              <div className='shapeshift-form__selector-label'>
+        <div className="shapeshift-form">
+          <div className="shapeshift-form__selectors">
+            <div className="shapeshift-form__selector">
+              <div className="shapeshift-form__selector-label">
                 Deposit
               </div>
               <select
-                className='shapeshift-form__selector-input'
+                className="shapeshift-form__selector-input"
                 value={this.state.depositCoin}
                 onChange={this.onCoinChange}
               >
@@ -159,14 +160,14 @@ export class ShapeShiftForm extends Component {
               </select>
             </div>
             <div
-              className='icon shapeshift-form__caret'
+              className="icon shapeshift-form__caret"
               style={{ backgroundImage: 'url(images/caret-right.svg)'}}
             />
-            <div className='shapeshift-form__selector'>
-              <div className='shapeshift-form__selector-label'>
+            <div className="shapeshift-form__selector">
+              <div className="shapeshift-form__selector-label">
                 Receive
               </div>
-              <div className='shapeshift-form__selector-input'>
+              <div className="shapeshift-form__selector-input">
                 ETH
               </div>
             </div>
@@ -176,18 +177,18 @@ export class ShapeShiftForm extends Component {
               'shapeshift-form__address-input-wrapper--error': errorMessage,
             })}
           >
-            <div className='shapeshift-form__address-input-label'>
+            <div className="shapeshift-form__address-input-label">
               Your Refund Address
             </div>
             <input
-              type='text'
-              className='shapeshift-form__address-input'
+              type="text"
+              className="shapeshift-form__address-input"
               onChange={e => this.setState({
                 refundAddress: e.target.value,
                 errorMessage: '',
               })}
             />
-            <div className='shapeshift-form__address-input-error-message'>
+            <div className="shapeshift-form__address-input-error-message">
               {errorMessage}
             </div>
           </div>
